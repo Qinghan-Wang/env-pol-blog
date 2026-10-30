@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thirsty Algorithms in the Desert: Generative AI Data Centers and the Water Policy Dilemma in Phoenix and Mesa, Arizona</title>
+<meta name="description" content="An environmental policy blog on generative AI data centers, water and energy use, and the water policy dilemma in Phoenix and Mesa, Arizona.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Thirsty Algorithms in the Desert">
+<meta property="og:description" content="Generative AI data centers and the water policy dilemma in Phoenix and Mesa, Arizona.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="assets/images/cover-phoenix-aerial.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f6b63'/%3E%3Cpath d='M16 7c4 4.6 6 7.6 6 10.4A6 6 0 0 1 10 17.4C10 14.6 12 11.6 16 7z' fill='%23fbf9f5'/%3E%3C/svg%3E">
+<style>
+/* ---------------------------------------------------------------- tokens */
+:root{
+  --bg:#fbf9f5;
+  --panel:#ffffff;
+  --ink:#221f1a;
+  --ink-soft:#5c564a;
+  --rule:#e5e0d5;
+  --accent:#0f6b63;
+  --accent-2:#a8761d;
+  --accent-soft:#e9f2f0;
+  --shadow:0 18px 40px -30px rgba(24,20,12,.55);
+  --max:768px;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+  --sans:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#14130f;
+    --panel:#1c1a16;
+    --ink:#eae5d9;
+    --ink-soft:#a8a192;
+    --rule:#332e26;
+    --accent:#4ec2b4;
+    --accent-2:#d8a94a;
+    --accent-soft:#1b2724;
+    --shadow:0 18px 40px -30px rgba(0,0,0,.9);
+  }
+}
+/* ---------------------------------------------------------------- base */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:1.1875rem;
+  line-height:1.72;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+.wrap--wide{max-width:1080px;margin:0 auto;padding:0 22px}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;
+  text-decoration-thickness:1px;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+a:hover{text-decoration-color:var(--accent);text-decoration-thickness:2px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel);color:var(--ink);
+  padding:10px 16px;border-radius:0 0 10px 0;z-index:99;font-family:var(--sans);font-size:.9rem}
+.skip:focus{left:0}
+
+/* progress */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+/* ---------------------------------------------------------------- masthead */
+.masthead{padding:clamp(2.2rem,6vw,4.4rem) 0 0}
+h1{
+  font-family:var(--sans);
+  font-weight:700;
+  font-size:clamp(1.95rem,4.9vw,3.05rem);
+  line-height:1.1;
+  letter-spacing:-.021em;
+  margin:0 0 1rem;
+  text-wrap:balance;
+}
+.standfirst{
+  font-size:clamp(1.05rem,2.3vw,1.28rem);
+  line-height:1.5;
+  color:var(--ink-soft);
+  font-style:italic;
+  margin:0 auto 0 0;
+  max-width:38em;
+  padding-left:1rem;
+  border-left:3px solid var(--accent-2);
+  text-wrap:pretty;
+}
+.hero{margin:clamp(1.8rem,4vw,2.8rem) 0 0}
+.hero img{width:100%;height:auto;display:block;border-radius:14px;box-shadow:var(--shadow)}
+
+/* ---------------------------------------------------------------- figures */
+figure{margin:2.1rem 0}
+figure img{width:100%;height:auto;display:block;border-radius:10px}
+.plate{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:10px;box-shadow:var(--shadow)}
+.plate img{border-radius:8px}
+figcaption{
+  font-family:var(--sans);
+  font-size:.83rem;
+  line-height:1.58;
+  color:var(--ink-soft);
+  margin-top:.75rem;
+  text-wrap:pretty;
+}
+figcaption strong{color:var(--ink);font-weight:700}
+figcaption .src{display:block;margin-top:.35rem;font-style:italic}
+figcaption .credit{display:block;margin-top:.25rem}
+@media (max-width:860px){
+  .plate{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .plate img{min-width:740px}
+}
+
+/* ---------------------------------------------------------------- toc */
+.toc{
+  font-family:var(--sans);
+  background:var(--panel);
+  border:1px solid var(--rule);
+  border-radius:16px;
+  padding:1.1rem 1.35rem 1.25rem;
+  margin:clamp(2rem,4vw,2.8rem) 0 0;
+}
+.toc h2{
+  font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);
+  margin:0 0 .7rem;padding:0;border:0;font-weight:700;
+}
+.toc ol{
+  margin:0;padding-left:1.15rem;columns:2;column-gap:30px;
+  font-size:.9rem;line-height:1.45;
+}
+.toc li{margin-bottom:.42rem;break-inside:avoid}
+.toc a{text-decoration:none;color:var(--ink)}
+.toc a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+@media (max-width:660px){.toc ol{columns:1}}
+
+/* ---------------------------------------------------------------- article */
+article{padding:clamp(1.6rem,3.5vw,2.6rem) 0 0}
+article > * + *{margin-top:0}
+p{margin:0 0 1.18em;text-wrap:pretty}
+h2{
+  font-family:var(--sans);
+  font-size:clamp(1.3rem,2.7vw,1.6rem);
+  line-height:1.24;
+  letter-spacing:-.012em;
+  font-weight:700;
+  margin:3.2rem 0 1.1rem;
+  padding-top:1.15rem;
+  border-top:1px solid var(--rule);
+  position:relative;
+  text-wrap:balance;
+}
+h2::before{
+  content:"";position:absolute;top:-1px;left:0;width:54px;height:3px;
+  background:var(--accent);border-radius:2px;
+}
+h3{
+  font-family:var(--sans);
+  font-size:1.05rem;
+  line-height:1.35;
+  letter-spacing:.002em;
+  font-weight:700;
+  color:var(--accent);
+  margin:2.2rem 0 .7rem;
+  text-wrap:balance;
+}
+.lede::first-letter{
+  float:left;
+  font-family:var(--sans);
+  font-size:3.4em;
+  line-height:.82;
+  font-weight:700;
+  color:var(--accent);
+  padding:.06em .1em 0 0;
+}
+ul{padding-left:1.25rem;margin:0 0 1.18em}
+li{margin-bottom:.42rem}
+li::marker{color:var(--accent)}
+hr{border:0;height:1px;background:var(--rule);margin:3rem 0 2.2rem}
+
+/* references + note */
+.refs{
+  font-size:.95rem;line-height:1.62;padding-left:1.3rem;margin:0 0 2rem;
+}
+.refs li{margin-bottom:.62rem;word-break:break-word;overflow-wrap:anywhere}
+.refs li::marker{color:var(--accent-2);font-variant-numeric:tabular-nums}
+.editorial-note{
+  font-size:.95rem;line-height:1.65;
+  background:var(--accent-soft);
+  border-left:4px solid var(--accent);
+  border-radius:0 12px 12px 0;
+  padding:.95rem 1.2rem;
+  margin:0 0 1rem;
+  color:var(--ink);
+  text-wrap:pretty;
+}
+
+/* ---------------------------------------------------------------- footer */
+footer{
+  font-family:var(--sans);font-size:.84rem;line-height:1.6;color:var(--ink-soft);
+  border-top:1px solid var(--rule);
+  margin-top:3.4rem;padding:2.2rem 0 4rem;
+  text-wrap:pretty;
+}
+footer h2{
+  font-family:var(--sans);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent-2);border:0;padding:0;margin:0 0 .8rem;
+}
+footer h2::before{display:none}
+footer ul{padding-left:1.15rem;margin:0 0 1.4rem}
+footer li{margin-bottom:.5rem}
+footer .fine{margin:0;opacity:.85}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .progress{transition:none}
+}
+@media print{
+  .progress,.toc,.skip{display:none}
+  body{background:#fff;color:#000;font-size:11pt}
+  a{color:#000;text-decoration:underline}
+  h2{page-break-after:avoid}
+  figure,table{page-break-inside:avoid}
+  .plate{border:1px solid #ccc;box-shadow:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#introduction">Skip to article</a>
+<div class="progress" id="progress"></div>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Thirsty Algorithms in the Desert: Generative AI Data Centers and the Water Policy Dilemma in Phoenix and Mesa, Arizona</h1>
+    <p class="standfirst">How can a fast-growing technology industry operate responsibly in one of the driest metropolitan regions in the United States?</p>
+  </div>
+  <div class="wrap--wide">
+    <figure class="hero">
+      <img src="assets/images/cover-phoenix-aerial.jpg" width="1800" height="1350"
+           alt="Aerial view of Phoenix, Arizona." fetchpriority="high" decoding="async">
+      <figcaption>
+        <strong>Cover image.</strong> “Phoenix AZ Downtown from airplane,” by Melikamp, via
+        <a href="https://commons.wikimedia.org/wiki/File:Phoenix_AZ_Downtown_from_airplane.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>.
+        Licensed under
+        <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>.
+        Resized for web display.
+      </figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc" aria-labelledby="toc-heading">
+    <h2 id="toc-heading">Contents</h2>
+    <ol>
+      <li><a href="#introduction">Introduction: The Hidden Cost of a Digital Future</a></li>
+      <li><a href="#why-water">1. Why AI Data Centers Need Water and Energy</a></li>
+      <li><a href="#phoenix-mesa">2. Phoenix and Mesa: Growth in a Water-Constrained Region</a></li>
+      <li><a href="#questions">3. The Environmental and Social Questions Behind the Numbers</a></li>
+      <li><a href="#policies">4. What Existing Policies Can and Cannot Do</a></li>
+      <li><a href="#recommendations">5. Three Policy Recommendations for Arizona</a></li>
+      <li><a href="#conclusion">Conclusion: Make AI Growth Accountable</a></li>
+      <li><a href="#references">References</a></li>
+    </ol>
+  </nav>
+</div>
+
+<main class="wrap">
+<article>
+
+  <h2 id="introduction">Introduction: The Hidden Cost of a Digital Future</h2>
+
+  <p class="lede">Generative artificial intelligence has become part of everyday life. People use AI tools to write emails, translate documents, create images, and answer questions. These activities may seem entirely digital, but every AI response depends on physical infrastructure. Data centers house servers, processors, cooling equipment, and electrical systems. They require substantial electricity, and many use water to remove heat.</p>
+
+  <p>This creates an important environmental policy question: how should communities manage AI infrastructure, especially where water is already limited?</p>
+
+  <p>The Phoenix metropolitan area in Arizona offers a useful case study. Located in the Sonoran Desert, the region faces long-term challenges involving groundwater, Colorado River supplies, extreme heat, and rising demand. At the same time, Phoenix and nearby cities have become major locations for data center development. According to <a href="https://www.apmresearchlab.org/10x/data-centers-resource" target="_blank" rel="noopener">APM Research Lab</a>, Phoenix was one of the country's largest data center markets at the time of its February 2025 report. Google, Microsoft, and other major technology companies have established facilities in the region.</p>
+
+  <p>The situation is not as simple as saying technology companies are taking water away from residents. Data centers use different cooling systems, and some use little water on-site. Arizona also relies on several water sources, including groundwater, the Colorado River, the Salt River system, and reclaimed wastewater. Data centers are not the only cause of the region's water challenges.</p>
+
+  <p>However, their growth raises questions about water allocation, infrastructure costs, and whether local governments have enough information to evaluate new projects. These questions matter when some communities face restrictions on new groundwater-dependent housing while industrial development continues to seek land, electricity, and water.</p>
+
+  <p>This blog argues that Arizona should manage data center expansion through transparent water reporting, enforceable local water-use standards, and coordinated water and energy planning. The goal is not to stop AI development, but to ensure that its economic benefits do not come at the expense of long-term water security and community well-being.</p>
+
+  <h2 id="why-water">1. Why AI Data Centers Need Water and Energy</h2>
+
+  <h3>From digital services to physical infrastructure</h3>
+
+  <p>A data center houses computing equipment and the systems needed to keep it operating. Some facilities support websites, cloud storage, and business applications. Others support high-performance computing and AI workloads that require powerful processors.</p>
+
+  <p>These processors consume electricity and produce heat. If that heat is not removed, equipment may become less efficient, suffer damage, or shut down. Cooling is therefore essential.</p>
+
+  <p>One common method is evaporative cooling. Water absorbs heat and evaporates, lowering temperatures. Cooling towers and other evaporative systems can be energy-efficient, but they consume water as some of it leaves the system as vapor. Additional water may be discharged to control mineral buildup. The amount consumed depends on equipment, weather, and operating conditions.</p>
+
+  <p>Air-based and closed-loop systems offer alternatives. Some air-cooled facilities use little water for cooling, while closed-loop systems circulate coolant rather than continuously evaporating large volumes. These approaches can reduce direct water consumption, but their overall environmental performance also depends on the electricity supply. A facility that uses little water on-site may still depend on power plants that use water.</p>
+
+  <p>A data center's environmental footprint therefore includes both resources used inside the facility and resources used to produce its electricity.</p>
+
+  <h3>Direct water use is not the whole story</h3>
+
+  <p>Researchers Pengfei Li, Jianyi Yang, Mohammad A. Islam, and Shaolei Ren examined AI's water footprint in their 2023 paper, <a href="https://arxiv.org/abs/2304.03271" target="_blank" rel="noopener">“Making AI Less ‘Thirsty’: Uncovering and Addressing the Secret Water Footprint of AI Models”</a>. The paper explains why AI water use deserves attention alongside carbon emissions and electricity consumption. It also emphasizes that water use varies with location, time, and computing technology.</p>
+
+  <p>There is no single reliable number for the water cost of every AI query. The answer depends on the model, hardware, cooling system, electricity source, and local weather. Estimates for one facility should not automatically be applied to all AI services.</p>
+
+  <p>Another important distinction is the difference between water withdrawal and water consumption. Withdrawal refers to water taken from a source, some of which may later be returned. Consumption refers to water not returned to the same water system in a usable form within the relevant period, often because it evaporates or becomes unavailable elsewhere. The terms are not interchangeable.</p>
+
+  <p>The water-energy relationship also works in both directions. Data centers need electricity to operate cooling systems, while electricity generation can require water. Policymakers must therefore consider the water-energy nexus: the connections between water supply, electricity production, cooling technology, and environmental impact.</p>
+
+  <h3>Why location matters</h3>
+
+  <p>A gallon of water does not have the same environmental significance everywhere. In a region with abundant water, a new industrial user may create relatively little local pressure. In a desert region facing competing demands, the same use may deserve closer scrutiny.</p>
+
+  <p>Phoenix's hot summers create additional challenges. Extreme heat can increase cooling needs and put pressure on the electrical grid. Meanwhile, population growth and economic development create demand for housing, businesses, public services, and water infrastructure.</p>
+
+  <p>The key question is not simply how much water one data center uses. It is whether its water source is sustainable, whether demand is concentrated during periods of high stress, and whether the region can support it without unacceptable costs.</p>
+
+  <figure>
+    <div class="plate">
+      <img src="assets/figures/figure1-water-energy-flowchart.svg" width="1110" height="790"
+           alt="Flow chart showing how AI computing demand creates data center electricity demand and server heat. Electricity demand leads to power generation and indirect water use; server heat leads to the cooling system, which produces direct water use. Air cooling or closed-loop cooling may reduce on-site water use. Direct and indirect water use together form the overall water footprint, whose local effects depend on water source, climate, cooling technology and facility concentration."
+           loading="lazy" decoding="async">
+    </div>
+    <figcaption>
+      <strong>Figure 1. The water-energy connection in AI infrastructure</strong>
+      <span class="src">Source: Author-created diagram based on Li et al. (2023), <a href="https://www.apmresearchlab.org/10x/data-centers-resource" target="_blank" rel="noopener">APM Research Lab (2025)</a>, and <a href="https://www.ceres.org/resources/reports/water-behind-the-watts-the-hidden-risk-of-powering-data-centers" target="_blank" rel="noopener">Ceres (2026)</a>.</span>
+    </figcaption>
+  </figure>
+
+  <h2 id="phoenix-mesa">2. Phoenix and Mesa: Growth in a Water-Constrained Region</h2>
+
+  <h3>A growing data center market</h3>
+
+  <p>Phoenix has several advantages that attract data center developers. It has a large metropolitan economy, connections to major fiber-optic networks, available development sites in parts of the region, and a climate that can be managed through engineered cooling systems. State tax incentives have also supported the industry.</p>
+
+  <p>The <a href="https://www.azcommerce.com/incentives/computer-data-center-program/" target="_blank" rel="noopener">Arizona Commerce Authority's Computer Data Center Program</a> has offered qualifying businesses tax exemptions on eligible computer equipment and related purchases. Such incentives can encourage investment, but they also raise a question: what public benefits should communities expect in return for supporting an industry that requires substantial infrastructure?</p>
+
+  <p>Data centers can bring construction activity, investment, and demand for specialized services. However, their economic benefits should be evaluated alongside electricity demand, water use, land requirements, and public infrastructure costs. Job creation and the costs borne by local governments also matter.</p>
+
+  <p>Mesa illustrates this complexity. Google broke ground on a data center in the city in 2023, according to <a href="https://www.apmresearchlab.org/10x/data-centers-resource" target="_blank" rel="noopener">APM Research Lab</a>. A separate project discussed in a 2021 <a href="https://www.datacenterdynamics.com/en/news/huge-data-center-moves-forward-in-mesa-despite-arizona-water-concerns/" target="_blank" rel="noopener">Data Center Dynamics report</a> involved a developer operating through Redale LLC. These projects should not be treated as the same development. Their ownership, design, and water arrangements must be established separately.</p>
+
+  <p>This distinction matters because public discussions sometimes combine different projects into one story. A claim about one site's water agreement cannot automatically be applied to another.</p>
+
+  <figure>
+    <img src="assets/images/mesa-data-center-cooling-tower.jpg" width="1400" height="1050"
+         alt="Data center cooling equipment photographed in Mesa, Arizona."
+         loading="lazy" decoding="async">
+    <figcaption>
+      <strong>Photo.</strong> “Data center cooling tower,” by Rsparks3, via
+      <a href="https://commons.wikimedia.org/wiki/File:Data_center_cooling_tower.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>.
+      Licensed under
+      <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 1.0</a>.
+      Resized for web display.
+    </figcaption>
+  </figure>
+
+  <h3>What does Arizona's groundwater policy actually restrict?</h3>
+
+  <p>The groundwater debate is often presented as a direct conflict between housing and data centers. There is a real policy issue, but the legal details matter.</p>
+
+  <p>In June 2023, Arizona released a new groundwater model for the Phoenix Active Management Area. It found that legally available groundwater would be insufficient to meet all projected demand over the next 100 years under the modeled assumptions. The state consequently stopped issuing new Certificates of Assured Water Supply for subdivisions relying on local groundwater in the affected area.</p>
+
+  <p>However, this is not a blanket ban on new housing across metropolitan Phoenix. As explained by the <a href="https://azwaterblueprint.asu.edu/news/untangling-housing-affordability-groundwater-regulation" target="_blank" rel="noopener">Kyl Center for Water Policy at Arizona State University</a>, most of the metropolitan population is served by designated water providers. Those providers must demonstrate long-term water availability and can continue serving development under applicable rules. The restrictions more directly affect certain areas that depend on local groundwater to qualify new subdivisions.</p>
+
+  <p>This does not eliminate the policy concern. Some housing developers face additional barriers when groundwater cannot support a long-term water supply demonstration, while industrial projects may follow different approval processes and water arrangements.</p>
+
+  <p>The central question is whether these differences are justified by water sources, legal requirements, infrastructure, and public benefits. Housing and data centers are not interchangeable water users, but officials should explain why each project is approved, which water source it relies on, and how its demand fits into regional planning.</p>
+
+  <h3>How large is data center water use?</h3>
+
+  <p>Data on individual data centers can be difficult to obtain. Companies may publish global sustainability reports, but global totals do not reveal how much water a specific Arizona facility uses. Local reporting may also describe proposed rather than actual consumption.</p>
+
+  <p>One regional estimate helps illustrate the potential scale. In April 2025, <a href="https://www.circleofblue.org/2025/supply/data-centers-a-small-but-growing-factor-in-arizonas-water-budget/" target="_blank" rel="noopener">Circle of Blue</a> cited an estimate that Arizona data centers would consume approximately 905 million gallons of water in 2025, equivalent to about 2,777 acre-feet. This was an estimate, not a final audited measurement. The report placed it at less than one-tenth of one percent of Arizona's overall annual water use.</p>
+
+  <p>That statewide share is relatively small. It is inaccurate to describe data centers as the main cause of Arizona's water problems. Agriculture, urban growth, and the broader regional water system remain central to the state's challenges.</p>
+
+  <p>Yet statewide totals can hide local pressure. A facility may have a modest effect on the state's total water budget while placing a larger demand on one utility, service area, or groundwater source. Timing also matters because water and electricity systems must meet demand where and when it occurs.</p>
+
+  <p>APM Research Lab's 2025 investigation described an estimate that Microsoft's Goodyear data center would use around 56 million gallons of potable water annually. This was a facility-specific estimate, not a measurement for all Microsoft facilities or data centers. The report also highlighted a transparency problem: the facility's water records were considered proprietary.</p>
+
+  <p>A responsible assessment needs more than one number. It needs actual annual consumption, water sources, seasonal patterns, cooling technology, and a clear distinction between projected and measured use.</p>
+
+  <figure>
+    <div class="plate">
+      <img src="assets/figures/figure2-water-use-estimates.svg" width="1000" height="470"
+           alt="Two data cards. Arizona, 2025 estimate: 905 million gallons per year, estimated water consumption by data centers statewide, from Circle of Blue (2025). Microsoft, Goodyear: 56 million gallons per year, reported estimate of potable-water use at one facility, from APM Research Lab (2025). A note states that a statewide consumption estimate and a single-facility potable-water estimate are not like-for-like figures."
+           loading="lazy" decoding="async">
+    </div>
+    <figcaption>
+      <strong>Figure 2. Comparing water-use estimates: why the units and boundaries matter</strong>
+      <span class="src">Source: <a href="https://www.circleofblue.org/2025/supply/data-centers-a-small-but-growing-factor-in-arizonas-water-budget/" target="_blank" rel="noopener">Circle of Blue (2025)</a>; <a href="https://www.apmresearchlab.org/10x/data-centers-resource" target="_blank" rel="noopener">APM Research Lab (2025)</a>.</span>
+    </figcaption>
+  </figure>
+
+  <h2 id="questions">3. The Environmental and Social Questions Behind the Numbers</h2>
+
+  <h3>Environmental externalities and public costs</h3>
+
+  <p>In environmental economics, a negative externality occurs when an activity creates costs that are not fully reflected in the price paid by the decision-maker. Water use can create such costs when a project places pressure on a shared resource or requires public infrastructure that the project does not fully pay for.</p>
+
+  <p>A data center may pay its water bill and still create broader costs if its growth requires new treatment capacity, pipelines, or additional supplies. Whether these costs are passed to other customers depends on local contracts, rates, and utility regulation. The key question is whether financial arrangements reflect the full cost of serving the facility.</p>
+
+  <p>The same principle applies to electricity. Large facilities may require new grid connections, substations, or generation capacity. If these investments are driven mainly by industrial demand, policymakers should examine how costs are divided among developers, utilities, and existing customers.</p>
+
+  <p>This is an issue of resource allocation. Water and electricity have alternative uses, and decisions about one large user can influence infrastructure investment and the capacity available for other needs. Transparent accounting helps communities decide whether a project's benefits justify its costs.</p>
+
+  <h3>Environmental justice and public participation</h3>
+
+  <p>Environmental justice concerns how environmental benefits and burdens are distributed and whether affected communities have a meaningful role in decisions.</p>
+
+  <p>Data centers may bring investment and tax revenue, but their impacts are not always experienced equally. Nearby residents may experience noise from cooling equipment or backup generators. Communities may also worry about utility costs, construction impacts, and cumulative industrial development.</p>
+
+  <p>These concerns deserve attention even when a facility's water consumption is small relative to statewide use. The location of a facility, its water source, the distribution of costs, and public access to information all matter.</p>
+
+  <p>However, environmental justice arguments should be evidence-based. It would be misleading to claim that data centers have caused all housing affordability problems in Phoenix, or that they have increased a particular neighborhood's water bills, without local evidence. Housing prices have many causes, including interest rates, housing supply, land-use rules, and construction costs.</p>
+
+  <figure>
+    <img src="assets/images/saguaro-cactus-arizona.jpg" width="1400" height="1084"
+         alt="A green saguaro cactus standing in a brown desert field."
+         loading="lazy" decoding="async">
+    <figcaption>
+      <strong>Photo.</strong> “green saguaro cactus on brown field,” by Thalia Perla, via
+      <a href="https://www.pexels.com/photo/green-saguaro-cactus-on-brown-field-4061938/" target="_blank" rel="noopener">Pexels</a>.
+      Used under the Pexels License. Resized for web display.
+    </figcaption>
+  </figure>
+
+  <p>A stronger argument is that local governments should evaluate cumulative impacts and make evidence available to affected communities. Residents should not have to rely on corporate promises or rumors to understand a project's likely consequences.</p>
+
+  <h3>Corporate promises and their limits</h3>
+
+  <p>Technology companies increasingly publish water stewardship commitments. Google reports on its water replenishment and efficiency efforts through its <a href="https://sustainability.google/reports/google-2025-environmental-report/" target="_blank" rel="noopener">environmental reporting</a>. Microsoft has also announced a <a href="https://www.microsoft.com/en-us/microsoft-cloud/blog/2024/12/09/sustainable-by-design-next-generation-datacenters-consume-zero-water-for-cooling/" target="_blank" rel="noopener">closed-loop cooling design intended to consume no water for cooling</a>, with pilot deployments announced for 2026.</p>
+
+  <p>These efforts show that water demand is not fixed. Cooling design and operational choices can change a facility's water footprint.</p>
+
+  <p>However, corporate sustainability claims need careful evaluation. A company may replenish water in one watershed while using water in another. Replenishment may also occur at a different time from consumption. Such projects can provide benefits, but they do not necessarily replace the exact water used at the same place and time.</p>
+
+  <p>Similarly, “zero-water cooling” usually refers to water used for cooling within a facility. It does not mean the facility has no water footprint. Water may still be used for sanitation, cleaning, and other activities, while the electricity supply may involve water consumption at power plants.</p>
+
+  <p>Companies should disclose the boundaries of their claims, distinguishing on-site cooling water, total facility water use, electricity-related water use, and replenishment projects. Independent verification would make these disclosures more useful.</p>
+
+  <h2 id="policies">4. What Existing Policies Can and Cannot Do</h2>
+
+  <h3>Local rules are a starting point, not a complete solution</h3>
+
+  <p>Arizona municipalities have begun responding to data center growth, but their policies differ in scope.</p>
+
+  <p>Chandler adopted Ordinance No. 5033, which took effect in January 2023. According to the <a href="https://www.chandleraz.gov/news-center/chandlers-data-center-ordinance-now-effect" target="_blank" rel="noopener">City of Chandler's official announcement</a>, it addresses zoning, communication with affected residents, noise studies, noise mitigation, and backup generator testing. It should not be described as the city's water-use limit.</p>
+
+  <p>A separate Chandler water policy limits data center water use to 115 gallons per day per 1,000 square feet, according to <a href="https://www.circleofblue.org/2025/supply/data-centers-a-small-but-growing-factor-in-arizonas-water-budget/" target="_blank" rel="noopener">Circle of Blue's 2025 reporting</a>. Additional water needs must be addressed through an outside source under that policy. This illustrates why policy analysis must examine the actual scope of each rule rather than treating all local regulations as one comprehensive law.</p>
+
+  <p>Marana, another Arizona community, adopted a measure prohibiting its water department from supplying data centers with potable water, as reported by Circle of Blue. Such rules can reduce demand for drinking water, but their effectiveness depends on alternative supplies and their environmental impacts. Reclaimed water can be useful where suitable infrastructure exists, although transporting and treating it still require investment.</p>
+
+  <p>No single cooling solution works equally well at every site. Air-based cooling can reduce direct water demand, while some systems may require more electricity under certain conditions. Reclaimed-water cooling reduces demand for potable water but still consumes water through evaporation. Closed-loop designs can substantially reduce cooling water consumption, though their actual performance should be measured.</p>
+
+  <p>Local governments should set clear outcomes and reporting requirements while allowing developers to demonstrate how their systems meet those requirements.</p>
+
+  <h3>The importance of indirect water use</h3>
+
+  <p>Many discussions of data center sustainability focus on water used inside facilities while overlooking water associated with electricity generation.</p>
+
+  <p>A 2026 report by <a href="https://www.ceres.org/resources/reports/water-behind-the-watts-the-hidden-risk-of-powering-data-centers" target="_blank" rel="noopener">Ceres, Water Behind the Watts: The Hidden Risk of Powering Data Centers</a>, examines this issue across seven states, including Arizona. It estimates that electricity generation supporting data centers in those states depends on about 3.4 trillion gallons of freshwater withdrawals annually.</p>
+
+  <p>This is a modeled estimate of withdrawals across the states covered by the report, not a direct measurement of water consumed by Arizona data centers alone. It should not be treated as if every gallon were permanently lost.</p>
+
+  <p>Even with these limits, the finding has important implications. A facility that reduces direct water use may still rely on electricity from water-intensive power plants. Its indirect footprint depends on the actual electricity mix, generation technologies, and the time and location of demand.</p>
+
+  <p>Water and energy planning should therefore be coordinated. Utilities and operators should assess how new electricity demand affects grid reliability and water resources. Renewable electricity can reduce some pressures, but its broader water impacts and supporting infrastructure should also be considered.</p>
+
+  <h2 id="recommendations">5. Three Policy Recommendations for Arizona</h2>
+
+  <p>The goal should be to manage data center growth, not to make an unsupported choice between technology and the environment. Three reforms would improve decision-making while allowing efficient facilities to operate.</p>
+
+  <h3>Recommendation 1: Require transparent, facility-level water reporting</h3>
+
+  <p>Arizona should establish consistent reporting requirements for large data centers, working with local governments, utilities, and relevant state agencies.</p>
+
+  <p>Reports should include:</p>
+
+  <ul>
+    <li>Annual water withdrawals and consumption, reported separately.</li>
+    <li>Water sources, including potable water, groundwater, surface water, and reclaimed water.</li>
+    <li>Water used for cooling and other facility operations.</li>
+    <li>Monthly or seasonal demand to identify peak use.</li>
+    <li>Expected water demand at full buildout, separated from measured use.</li>
+    <li>Electricity consumption and, where credible data are available, estimates of water associated with electricity generation.</li>
+    <li>Replenishment commitments, including location, timing, and measurement methods.</li>
+  </ul>
+
+  <p>Reports should use consistent definitions and undergo independent verification. Commercially sensitive details can receive appropriate protection, but basic information about major facilities' environmental impacts should be public.</p>
+
+  <p>This reform would help residents compare facilities using consistent measures and help utilities plan capacity and identify projects that may create local pressure.</p>
+
+  <h3>Recommendation 2: Use water standards that reflect local conditions</h3>
+
+  <p>Arizona should encourage local governments to establish enforceable water-use standards for new data centers based on local water-system capacity and risk.</p>
+
+  <p>Cities could require developers to demonstrate that their proposed water sources are sustainable over the relevant planning period. They could prioritize reclaimed water where suitable infrastructure exists and where its use does not create unacceptable impacts elsewhere. Potable water could be reserved for essential uses when feasible alternatives are available.</p>
+
+  <p>However, requiring every data center to use 100 percent reclaimed water may not be practical everywhere. Some areas lack the necessary pipelines or treatment capacity, and building infrastructure can be costly. Reclaimed water is also not impact-free simply because it is not drinking water.</p>
+
+  <p>A better policy would set clear performance standards, require a credible water-supply plan, and make developers responsible for reasonable infrastructure costs incurred primarily to serve their projects. Water-intensive cooling systems should face stronger scrutiny where supplies are stressed, while low-water systems should receive appropriate recognition.</p>
+
+  <p>Rules should also be applied transparently across comparable industrial users. If one type of development faces stricter requirements than another, officials should explain the legal and hydrological reasons.</p>
+
+  <h3>Recommendation 3: Evaluate water and electricity together</h3>
+
+  <p>Before approving a large data center, local governments and utilities should evaluate both direct water demand and the electricity required to operate it.</p>
+
+  <p>Assessments should cover peak electricity demand, expected power sources, the role of water-intensive generation, and cooling design. Developers should explain how they will reduce demand during extreme heat or grid stress where practical. Utilities should disclose how new infrastructure costs will be allocated.</p>
+
+  <p>Clean energy procurement, energy efficiency, storage, and flexible operations can help reduce some pressures. However, renewable electricity should not be treated as an automatic guarantee of zero water impact. Projects should be assessed using transparent assumptions and realistic operating conditions.</p>
+
+  <p>Policymakers should also consider cumulative effects. Several facilities may each appear manageable when assessed separately, but their combined demand can create larger challenges for local water and electricity systems. Regional planning should consider the full pipeline of proposed developments, not just the next application.</p>
+
+  <p>These reviews should happen before major commitments are made. Once a city has approved a site and invested in infrastructure, it may have fewer options to change the project's design or limit its impacts.</p>
+
+  <h2 id="conclusion">Conclusion: Make AI Growth Accountable</h2>
+
+  <p>Phoenix and Mesa show why AI's environmental impact cannot be understood by looking only at a computer screen. Data centers require land, electricity, cooling systems, and water. Their impacts depend on technology, local climate, water sources, and development policies.</p>
+
+  <p>The evidence does not support the claim that data centers are the main cause of Arizona's water problems. Statewide estimates suggest that their direct water consumption remains a small share of total use. Yet statewide percentages can hide local pressures, while data center growth raises questions about infrastructure costs, transparency, and long-term water security.</p>
+
+  <p>The challenge is not simply to choose between AI and water conservation. Development decisions should reflect the real costs and benefits of each project. Companies should disclose their water use, local governments should apply clear and consistent standards, and utilities should plan for water and electricity demand together.</p>
+
+  <p>The most responsible data center is not necessarily the one making the strongest sustainability promise. It is the one whose resource use can be measured, whose water supply is sustainable, whose infrastructure costs are fairly allocated, and whose impacts are openly discussed with affected communities.</p>
+
+  <p>AI will continue to grow. Arizona has an opportunity to show that technological development and responsible water management can advance together, but this requires public rules, reliable data, and accountability rather than voluntary promises alone.</p>
+
+  <hr>
+
+  <h2 id="references">References</h2>
+
+  <ol class="refs">
+    <li>Arizona Commerce Authority. (n.d.). Computer Data Center Program. <a href="https://www.azcommerce.com/incentives/computer-data-center-program/" target="_blank" rel="noopener">https://www.azcommerce.com/incentives/computer-data-center-program/</a></li>
+    <li>Arizona State University, Kyl Center for Water Policy. (2023). Untangling housing affordability and groundwater regulation. Arizona Water Blueprint. <a href="https://azwaterblueprint.asu.edu/news/untangling-housing-affordability-groundwater-regulation" target="_blank" rel="noopener">https://azwaterblueprint.asu.edu/news/untangling-housing-affordability-groundwater-regulation</a></li>
+    <li>APM Research Lab. (2025, February 27). Are data centers depleting the Southwest’s water and energy resources? <a href="https://www.apmresearchlab.org/10x/data-centers-resource" target="_blank" rel="noopener">https://www.apmresearchlab.org/10x/data-centers-resource</a></li>
+    <li>Ceres. (2026, August 25). Water behind the watts: The hidden risk of powering data centers. <a href="https://www.ceres.org/resources/reports/water-behind-the-watts-the-hidden-risk-of-powering-data-centers" target="_blank" rel="noopener">https://www.ceres.org/resources/reports/water-behind-the-watts-the-hidden-risk-of-powering-data-centers</a></li>
+    <li>City of Chandler. (2023, January 11). Chandler’s data center ordinance now in effect. <a href="https://www.chandleraz.gov/news-center/chandlers-data-center-ordinance-now-effect" target="_blank" rel="noopener">https://www.chandleraz.gov/news-center/chandlers-data-center-ordinance-now-effect</a></li>
+    <li>Circle of Blue. (2025, April 2). Data centers a small, but growing factor in Arizona’s water budget. <a href="https://www.circleofblue.org/2025/supply/data-centers-a-small-but-growing-factor-in-arizonas-water-budget/" target="_blank" rel="noopener">https://www.circleofblue.org/2025/supply/data-centers-a-small-but-growing-factor-in-arizonas-water-budget/</a></li>
+    <li>Data Center Dynamics. (2021, May 25). Huge data center moves forward in Mesa despite Arizona water concerns. <a href="https://www.datacenterdynamics.com/en/news/huge-data-center-moves-forward-in-mesa-despite-arizona-water-concerns/" target="_blank" rel="noopener">https://www.datacenterdynamics.com/en/news/huge-data-center-moves-forward-in-mesa-despite-arizona-water-concerns/</a></li>
+    <li>Li, P., Yang, J., Islam, M. A., &amp; Ren, S. (2023). Making AI less “thirsty”: Uncovering and addressing the secret water footprint of AI models. arXiv. <a href="https://arxiv.org/abs/2304.03271" target="_blank" rel="noopener">https://arxiv.org/abs/2304.03271</a></li>
+    <li>Microsoft. (2024, December 9). Sustainable by design: Next-generation datacenters consume zero water for cooling. <a href="https://www.microsoft.com/en-us/microsoft-cloud/blog/2024/12/09/sustainable-by-design-next-generation-datacenters-consume-zero-water-for-cooling/" target="_blank" rel="noopener">https://www.microsoft.com/en-us/microsoft-cloud/blog/2024/12/09/sustainable-by-design-next-generation-datacenters-consume-zero-water-for-cooling/</a></li>
+    <li>Google. (2025). Environmental report 2025. <a href="https://sustainability.google/reports/google-2025-environmental-report/" target="_blank" rel="noopener">https://sustainability.google/reports/google-2025-environmental-report/</a></li>
+  </ol>
+
+  <p class="editorial-note">Editorial note on data: Figures in this blog are reported estimates with different geographic and measurement boundaries. Statewide estimates, facility-specific estimates, water withdrawals, water consumption, and future projections should not be treated as interchangeable. The text identifies the source and scope of the main quantitative claims.</p>
+
+</article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Image credits and licensing</h2>
+    <ul>
+      <li>Cover photograph: “Phoenix AZ Downtown from airplane,” by Melikamp, via <a href="https://commons.wikimedia.org/wiki/File:Phoenix_AZ_Downtown_from_airplane.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Resized for web display.</li>
+      <li>Mesa photograph: “Data center cooling tower,” by Rsparks3, via <a href="https://commons.wikimedia.org/wiki/File:Data_center_cooling_tower.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, dedicated to the public domain under <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 1.0</a>. Resized for web display.</li>
+      <li>Desert photograph: “green saguaro cactus on brown field,” by Thalia Perla, via <a href="https://www.pexels.com/photo/green-saguaro-cactus-on-brown-field-4061938/" target="_blank" rel="noopener">Pexels</a>, used under the Pexels License. Resized for web display.</li>
+      <li>Figures 1 and 2: original diagrams created by the author. Data sources are cited in each caption.</li>
+    </ul>
+    <p class="fine">All in-text references are hyperlinked to the source, and full bibliographic details appear in the References section.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var bar = document.getElementById('progress');
+  if (!bar) return;
+  function update() {
+    var d = document.documentElement;
+    var max = d.scrollHeight - d.clientHeight;
+    bar.style.width = (max > 0 ? (d.scrollTop / max) * 100 : 0) + '%';
+  }
+  addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+</script>
+</body>
+</html>
